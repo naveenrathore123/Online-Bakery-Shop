@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<style>
+
+.card .read-more:hover{
+    font-size: 14px;
+}
+
+.card:hover{
+    box-shadow: 7px 7px 7px rgb(139, 135, 141);
+    transform:scale(1.01);
+}
+
+.card{
+  padding: 1.5em .5em .5em;
+  border-radius: 10em;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  background-color: rgb(185, 106, 238);
+}
+
+.img-fluid{
+  border-radius: 25px;
+}
+
+.size {
+  font-size: 80px;
+}
+
+.r11 {
+  background-color:rgb(137, 240, 146);
+  width: 60%;
+  border-radius: 10px;
+}
+
+
+</style>
+{% endblock style %}
+
+{% block content %}
+<div>
+  <p class="font-italic-bold text-white text-center size">Jagdish Bakery</p>
+</div>
+<div class="container">
+    <div class="row">
+      <div class="album py-5">
+        
+        <div class="d-flex align-items-center justify-content-center pb-5 r12">
+          <h1 class="h3 text-dark text-center r11 py-3">All Available Items List</h1>
+        </div>
+        
+        <div class=" time row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+          
+
+          {% for c in categories %}
+          <div class="col pb-4">
+            <div class="card border-2" style="height:12.5rem;">
+
+              <div class="card-body">
+                <p class="card-text">
+                  <a class="text-decoration-none text-dark" href="{{ c.get_absolute_url }}"><h3 class="pt-3">{{ c.name|title }}</h3></a>
+                </p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    
+      </div>
+    </div>
+  </div>
+
+
+
+{% comment %} {% for c in categories %}
+<li {% if category.slug == c.slug %}class="selected" {% endif %}>
+    <a class="" href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
+</li>
+{% endfor %} {% endcomment %}
+{% endblock content %}

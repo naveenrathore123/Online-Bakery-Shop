@@ -1,0 +1,78 @@
+{% extends './sub_base.html' %}
+{% load static %}
+
+{% block title %}Log-in{% endblock title %}
+
+{% block style %}
+
+<style>
+
+
+    .con11 {
+        border: 2px solid;
+        border-radius: 25px;
+        background-color:rgb(100, 237, 225);
+    }
+
+
+    .f13 {
+    
+        padding-top: 50px;
+           
+    }
+    .f111 {
+        margin-left: 12px;
+        border-radius: 0px 25px 25px 0px;
+    }
+    
+
+</style>
+
+{% endblock style %}
+
+{% block sub_content %}
+
+<div class="container con11">
+    <div class="row">
+        <div class="col-6  pl-3 f13">
+            <form class="account-form" action="{% url 'account:login' %}"
+                method="post">
+
+                {% csrf_token %}
+                <h3 class="mb-4">Sign-In</h3>
+
+                {% if form.errors %}
+                <div class="alert alert-primary" role='alert'>
+                    Error: Username or Password not correct!!
+                </div>
+                {% endif %}
+
+                <label class="form-label">{{ form.username.label }}</label>
+                {{form.username}}
+
+                <label class="form-label">{{ form.password.label }}</label>
+                {{form.password}}
+
+                <div class="d-grid gap-2">
+                    <input type="hidden" name="next" value="{{next}}">
+                    <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold"
+                        type="submit" value="Log-in">Sign-In</button>
+                </div>
+                <div class="flex-column justify-content-center mx-auto pb-3">
+                    <div class="text-center"><a href="{% url "account:register" %}">Create an account</a></div>
+                    <div class="text-center"><a href="{% url "account:pwdreset" %}">Forgotten Password?</a></div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-6 f14">
+            <img class = "img-responsive f111" width = "100%" alt="Img" src="/media/images/mobile-login.jpg">
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock sub_content %}

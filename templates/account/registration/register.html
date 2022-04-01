@@ -1,0 +1,77 @@
+{% extends '../sub_base.html' %}
+{% block title %}Register Account{% endblock title %}
+
+{% block style %}
+
+<style>
+    .t11 {
+        background-color: khaki;
+      }
+
+    .t111 {
+        background-color: rgb(149, 245, 149);
+      }
+</style>
+
+{% endblock style %}
+
+{% block sub_content %}
+
+<div class="container t11" style="max-width: 1000px">
+    <div class="col-12 pt-2">
+      <h1 class="h2">Create an account</h1>
+    </div>
+    <div class="col-12 d-flex justify-content-between">
+
+      <div>It's free and only takes a minute</div>
+    </div>
+    <hr />
+</div>
+
+
+<form action="." class="account-form p-5 t111" method="post">
+    {% csrf_token %}
+    
+    
+    {% if form.errors %}
+    <p>Please correct the following errors:</p>
+    {% for field in form %}
+    {% if field.errors %}
+    <div class="alert alert-primary" role="alert">
+        {{field.label}}: {{field.errors|striptags}}
+    </div>
+
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <label>
+        {{form.user_name.label}}
+        <span class="text-muted small">(Required)</span>
+    </label>
+    {{ form.user_name }}
+    <label>
+        {{form.email.label}}
+        <span class="text-muted small">(Required)</span>
+    </label>
+    {{form.email}}
+    <label>
+        {{form.password.label}}
+        <span class="text-muted mb-4"></span>
+    </label>
+    <small class="form-text text-muted mb-4 small">
+        At least 8 characters and 1 digit
+    </small>
+    {{form.password}}
+    <label>
+        {{form.password2.label}}
+        <span class="text-muted small">(Required)</span>
+    </label>
+    {{form.password2}}
+    <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Register</button>
+    <p class="text-center">
+        <a href="{% url 'account:login' %}">Already have an account?</a>
+    </p>
+</form>
+
+{% endblock sub_content %}

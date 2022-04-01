@@ -1,0 +1,64 @@
+{% extends "../sub_base.html" %}
+{% block title %}Users Wish List{% endblock title %}
+
+{% block style %}
+  <style>
+    .w11 {
+      background-color: rgb(167, 230, 95);
+    }
+    .t11 {
+      background-color: khaki;
+    }
+  </style>
+{% endblock style %}
+
+
+{% block sub_content %}
+<div class="container t11" style="max-width: 1000px">
+  <div class="col-12">
+    <h1 class="h2">My Wishlist</h1>
+  </div>
+  <div class="col-12 d-flex justify-content-between">
+    <div>Manage your <b>orders</b> and personal details</div>
+  </div>
+  <hr />
+</div>
+
+<div class="col-12 mx-auto pt-5">
+ 
+
+  {% if wishlist %}
+    {% for product in wishlist %}
+    
+    <div class="card mb-3 rounded-0">
+      <div class="row g-0 w11">
+        <div class="col-md-2">
+          {% for image in product.product_image.all %}
+            {% if image.is_feature %}
+              <img class="img-fluid d-block p-2" width="120px" src={{image.image.url}} alt="{{image.image.alt_text}}" />
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <p class="card-text">{{product.description}}</p>
+            <p class="card-text"><small class="text-muted">{{product.regular_price}}/-</small></p>
+            <a type="button" class="btn btn-success rounded fw500 btn-sm" href={% url 'account:user_wishlist' product.id %}>Remove from Wishlist</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% endfor %}
+  
+  {% else %}
+    <p class="card-text"> No products have been added to your wishlist yet</p>
+  {% endif %}
+
+
+  
+
+</div>
+
+{% endblock sub_content %}
